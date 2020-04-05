@@ -21,7 +21,7 @@ app.use(
     dest: "./assets/css",
     debug: true,
     outputStyle: "extended",
-    prefix: "/css"
+    prefix: "/css",
   })
 );
 
@@ -30,6 +30,9 @@ app.use(express.urlencoded());
 app.use(cookieParser());
 
 app.use(express.static("./assets"));
+
+//make the uploads path available to the browser
+app.use("/uploads", express.static(__dirname + "/uploads"));
 
 app.use(expressLayout);
 
@@ -50,17 +53,17 @@ app.use(
     saveUninitialized: false,
     resave: false,
     cookie: {
-      maxAge: 1000 * 60 * 100
+      maxAge: 1000 * 60 * 100,
     },
     store: new MongoStore(
       {
         mongooseConnection: db,
-        autoRemove: "disabled"
+        autoRemove: "disabled",
       },
-      function(err) {
+      function (err) {
         console.log(err || "connect-mongodb setup ok");
       }
-    )
+    ),
   })
 );
 
@@ -74,7 +77,7 @@ app.use(customMware.setFlash);
 //use express router
 app.use("/", require("./routes"));
 
-app.listen(port, function(err) {
+app.listen(port, function (err) {
   if (err) {
     console.log(`Error in running the server: ${err}`);
   }
