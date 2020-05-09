@@ -14,6 +14,9 @@ let transporter = nodemailer.createTransport({
     user: "dhanushmukhi", // generated username
     pass: "Dhanush@1297#", // generated password
   },
+  tls: {
+    rejectUnauthorized: false,
+  },
 });
 
 //here we define whenever we are going to send the html template and where it is stored in views

@@ -1,7 +1,8 @@
 const Comment = require("../models/comment");
 const Post = require("../models/post");
+const commentMailers = require("../mailers/comments_mailer");
 
-module.exports.create = async function(req, res) {
+module.exports.create = async function (req, res) {
   try {
     let post = await Post.findById(req.body.post);
 
@@ -9,12 +10,22 @@ module.exports.create = async function(req, res) {
       let comment = await Comment.create({
         content: req.body.content,
         post: req.body.post,
-        user: req.user._id
+        user: req.user._id,
       });
 
       post.comments.push(comment);
       post.save();
-
+      comment = await comment.populate("user", "name email").execPopulate();
+      commentMailers.newComment(comment);
+      if (req.xhr) {
+        return res.status(200).json({
+          data: {
+            comment: comment,
+          },
+          message: "Post Created!",
+        });
+      }
+      req.flash("success", "Comment Published!");
       res.redirect("/");
     }
   } catch (err) {
@@ -23,7 +34,7 @@ module.exports.create = async function(req, res) {
   }
 };
 
-module.exports.destroy = async function(req, res) {
+module.exports.destroy = async function (req, res) {
   try {
     let comment = await Comment.findById(req.params.id);
 
@@ -33,7 +44,7 @@ module.exports.destroy = async function(req, res) {
       comment.remove();
 
       let post = Post.findByIdAndUpdate(postId, {
-        $pull: { comments: req.params.id }
+        $pull: { comments: req.params.id },
       });
 
       return res.redirect("back");
