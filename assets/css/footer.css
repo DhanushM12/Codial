@@ -4,9 +4,12 @@
   padding: 5px 10px;
   display: flex;
   justify-content: flex-start;
-  flex-basis: auto; }
-  #layout-footer a {
-    color: white;
-    text-decoration: none; }
-  #layout-footer .footer-nav ul {
-    list-style: none; }
+  flex-basis: auto;
+}
+#layout-footer a {
+  color: white;
+  text-decoration: none;
+}
+#layout-footer .footer-nav ul {
+  list-style: none;
+}
