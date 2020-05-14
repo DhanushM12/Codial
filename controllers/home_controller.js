@@ -1,7 +1,7 @@
 const Post = require("../models/post");
 const User = require("../models/user");
 
-module.exports.home = async function(req, res) {
+module.exports.home = async function (req, res) {
   //return res.end("<h1>Express is up for Codial</h1>");
   //console.log(req.cookies);
   //res.cookie("user_id", 25);
@@ -20,15 +20,19 @@ module.exports.home = async function(req, res) {
       .populate({
         path: "comments",
         populate: {
-          path: "user"
-        }
-      });
+          path: "user",
+        },
+        populate: {
+          path: "likes",
+        },
+      })
+      .populate("likes");
     let users = await User.find({});
 
     return res.render("home", {
       title: "Codial | Home",
       posts: posts,
-      all_users: users
+      all_users: users,
     });
   } catch (err) {
     console.log("Error ", err);
