@@ -1,0 +1,1 @@
+::1 - - [18/May/2020:18:30:17 +0000] "GET / HTTP/1.1" 200 3499 "http://localhost:8000/users/profile/5ec197b447c4341d786d9340" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36"
