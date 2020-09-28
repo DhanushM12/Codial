@@ -28,8 +28,9 @@ const development = {
       rejectUnauthorized: false,
     },
   },
-  google_client_id: "####",
-  google_client_secret: "####",
+  google_client_id:
+    "273710427537-s6hqhoqr8sahh7igmjifabfgbiut3g5o.apps.googleusercontent.com",
+  google_client_secret: "B-xfUk8LleK0VWho7-RGzbUL",
   google_call_back_url: "http://localhost:8000/users/auth/google/callback",
   jwt_secret: "codial",
   morgan: {
@@ -66,6 +67,7 @@ const production = {
   },
 };
 
-module.exports = eval(
+module.exports = development;
+/*module.exports = eval(
   process.env.NODE_ENV == undefined ? development : eval(process.env.NODE_ENV)
-);
+);*/
